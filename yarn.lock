@@ -2382,6 +2382,11 @@ hmac-drbg@^1.0.0:
     minimalistic-assert "^1.0.0"
     minimalistic-crypto-utils "^1.0.1"
 
+hobostyle@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/hobostyle/-/hobostyle-1.0.0.tgz#98a26d68f96a01becc7f2dc3f952cf30e8a73b2a"
+  integrity sha1-mKJtaPlqAb7Mfy3D+VLPMOinOyo=
+
 homedir-polyfill@^1.0.1:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/homedir-polyfill/-/homedir-polyfill-1.0.3.tgz#743298cef4e5af3e194161fbadcc2151d3a058e8"

@@ -8,6 +8,7 @@
     "bulma": "^0.8.0",
     "chartist": "^0.11.4",
     "csv-parse": "^4.8.2",
+    "hobostyle": "^1.0.0",
     "hyperdom": "latest",
     "lowscore": "^1.17.0"
   },

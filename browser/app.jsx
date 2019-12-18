@@ -1,6 +1,7 @@
 import hyperdom from 'hyperdom'
 import '~/../bulma/css/bulma.css?raw' // eslint-disable-line
-import {mainTitle} from './styles.css'
+import {mainTitle, slider, positive, negative} from './styles.css'
+import {style} from 'hobostyle'
 import routes from './routes'
 import data from './data.json'
 import groupBy from 'lowscore/groupBy'
@@ -11,6 +12,7 @@ import pactify from './pactify'
 export default class App {
   constructor() {
     this.tribalIntolerance = 10
+    this.pieStyle = style()
   }
 
   routes() {
@@ -72,7 +74,7 @@ export default class App {
                   <input type="checkbox" binding='this.pactWithPC'/>Plaid Cymru
                 </label>
               </li>
-              <li>
+              <li class={slider}>
                 <label>
                   <input type="range" min="0" max="100" binding='this.tribalIntolerance'/>Tribal intolerance ({this.tribalIntolerance}%)
                 </label>
@@ -91,7 +93,7 @@ export default class App {
   }
 
   renderPieChart(totalSeatsByParty) {
-    return new PieChart({data: totalSeatsByParty})
+    return new PieChart({data: totalSeatsByParty, pieStyle: this.pieStyle})
   }
 
   renderResultTable(totalSeatsByParty) {
@@ -110,11 +112,15 @@ export default class App {
           {
             totalSeatsByParty.map(([party, seats]) => {
               const diff = seats - actualTotalSeatsByParty.find(actualPartyResult => actualPartyResult[0] === party)[1]
+              let className = ''
+              if (diff !== 0) {
+                className = diff > 0 ? positive : negative
+              }
               return (
                 <tr>
                   <td>{party}</td>
                   <td>{seats}</td>
-                  <td>{diff}</td>
+                  <td class={className}>{diff}</td>
                 </tr>
               )
             })
