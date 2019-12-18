@@ -1,0 +1,30 @@
+{
+  "scripts": {
+    "lint": "eslint $(git ls-files | grep -E '\\.jsx?$')",
+    "start": "webpack-dev-server",
+    "build": "webpack"
+  },
+  "dependencies": {
+    "chartist": "^0.11.4",
+    "chartist-plugin-tooltips-updated": "^0.1.2",
+    "csv-parse": "^4.8.2",
+    "hyperdom": "latest",
+    "lowscore": "^1.17.0"
+  },
+  "devDependencies": {
+    "@babel/core": "latest",
+    "babel-loader": "latest",
+    "babel-preset-hyperdom": "latest",
+    "clean-webpack-plugin": "latest",
+    "eslint": "latest",
+    "eslint-plugin-filenames": "latest",
+    "eslint-plugin-hyperdom": "latest",
+    "eslint-plugin-import": "latest",
+    "css-loader": "latest",
+    "html-webpack-plugin": "latest",
+    "style-loader": "latest",
+    "webpack": "latest",
+    "webpack-cli": "latest",
+    "webpack-dev-server": "latest"
+  }
+}
