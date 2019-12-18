@@ -5,18 +5,20 @@ function clone(thing) {
   return JSON.parse(JSON.stringify(thing))
 }
 
-export default function({data, pactedWith = []}) {
-  return Object.values(data).map(constituency => {
-    const labourResult = constituency.find(({pid}) => pid == 'LAB')
+export default function({data, pactedWith = [], tribalIntolerance = 0}) {
+  return data.map(constituencyResults => {
+    const labourResult = constituencyResults.find(({pid}) => pid == 'LAB')
 
     if (!labourResult) {
-      return constituency
+      return constituencyResults
     }
 
-    let result = clone(constituency)
+    let result = clone(constituencyResults)
 
     const [bestResult, ...others] = sortBy(result.filter(({pid}) => ['LAB'].concat(pactedWith).includes(pid)), 'votes').reverse()
-    bestResult.votes += others.map(other => other.votes).reduce(sum, 0)
+    bestResult.votes += Math.floor(
+      others.map(other => other.votes).reduce(sum, 0) * (100 - tribalIntolerance) / 100
+    )
     result = result.filter(({pid}) => !others.map(other => other.pid).includes(pid))
 
     return result

@@ -9,6 +9,10 @@ import PieChart from './pieChart'
 import pactify from './pactify'
 
 export default class App {
+  constructor() {
+    this.tribalIntolerance = 10
+  }
+
   routes() {
     return [
       routes.home({
@@ -30,6 +34,12 @@ export default class App {
               this.pactWithPC = v === 'true'
             },
             get: () => this.pactWithPC
+          },
+          tribalIntolerance: {
+            set: (v) => {
+              this.pactWithPC = Number(v)
+            },
+            get: () => this.tribalIntolerance
           },
         },
         render: () => this.render()
@@ -60,6 +70,11 @@ export default class App {
               <li>
                 <label>
                   <input type="checkbox" binding='this.pactWithPC'/>Plaid Cymru
+                </label>
+              </li>
+              <li>
+                <label>
+                  <input type="range" min="0" max="100" binding='this.tribalIntolerance'/>Tribal intolerance ({this.tribalIntolerance}%)
                 </label>
               </li>
             </ul>
@@ -110,18 +125,20 @@ export default class App {
   }
 
   calculateTotalSeatsByParty({doPactify = true} = {}) {
-    const pactedWith = doPactify
-      ? [
-        this.pactWithLD && 'LD',
-        this.pactWithGreens && 'GRN',
-        this.pactWithPC && 'PC',
-      ].filter(Boolean)
-      : []
+    const pactedWith = [
+      this.pactWithLD && 'LD',
+      this.pactWithGreens && 'GRN',
+      this.pactWithPC && 'PC',
+    ].filter(Boolean)
 
-    const groupedByConstituency = groupBy(data, 'constituency')
+    const groupedByConstituency = Object.values(groupBy(data, 'constituency'))
 
-    const winners = Object.values(pactify({data: groupedByConstituency, pactedWith})).map(constituency => {
-      return max(constituency, 'votes')
+    const pactifiedData = doPactify
+      ? pactify({data: groupedByConstituency, pactedWith, tribalIntolerance: this.tribalIntolerance})
+      : groupedByConstituency
+
+    const winners = pactifiedData.map(constituencyResults => {
+      return max(constituencyResults, 'votes')
     })
 
     const winnersTotalByParty = winners.reduce((result, {pid}) => {
