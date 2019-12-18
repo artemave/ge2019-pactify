@@ -5,8 +5,8 @@
     "build": "webpack"
   },
   "dependencies": {
+    "bulma": "^0.8.0",
     "chartist": "^0.11.4",
-    "chartist-plugin-tooltips-updated": "^0.1.2",
     "csv-parse": "^4.8.2",
     "hyperdom": "latest",
     "lowscore": "^1.17.0"
@@ -16,11 +16,11 @@
     "babel-loader": "latest",
     "babel-preset-hyperdom": "latest",
     "clean-webpack-plugin": "latest",
+    "css-loader": "latest",
     "eslint": "latest",
     "eslint-plugin-filenames": "latest",
     "eslint-plugin-hyperdom": "latest",
     "eslint-plugin-import": "latest",
-    "css-loader": "latest",
     "html-webpack-plugin": "latest",
     "style-loader": "latest",
     "webpack": "latest",

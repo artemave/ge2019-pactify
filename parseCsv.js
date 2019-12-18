@@ -22,4 +22,6 @@ const records = parse(csv, {
     }
   }
 })
+
+// eslint-disable-next-line
 console.log(JSON.stringify(records, null, 2))

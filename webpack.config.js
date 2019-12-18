@@ -22,7 +22,12 @@ module.exports = {
   },
   plugins: [
     new CleanWebpackPlugin(),
-    new HtmlWebpackPlugin({title: 'What if the remain parties had an election pact'})
+    new HtmlWebpackPlugin({
+      title: 'What if the remain parties had an election pact',
+      meta: {
+        viewport: 'width=device-width, initial-scale=1'
+      }
+    })
   ],
   module: {
     rules: [

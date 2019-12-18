@@ -1,17 +1,14 @@
 import hyperdom from 'hyperdom'
 import Chartist from 'chartist'
-import 'chartist-plugin-tooltips-updated'
-import '~/../chartist/dist/chartist.css?raw'
+import '~/../chartist/dist/chartist.css?raw' // eslint-disable-line
 import {chartContainer} from './styles.css'
 import partyColors from './partyColors.json'
 import sum from './sum'
 
 export default class PieChart {
   constructor({data}) {
-    const dataArray = Object.keys(data).map(key => [key, data[key]])
-    const dataArraySorted = dataArray.sort((a, b) => b[1] - a[1])
-    const topData = dataArraySorted.slice(0, 5)
-    const rest = dataArraySorted.slice(5)
+    const topData = data.slice(0, 5)
+    const rest = data.slice(5)
 
     this.data = {
       labels: topData.map(([key]) => key).concat('Other'),
@@ -23,10 +20,7 @@ export default class PieChart {
     new Chartist.Pie(el, this.data, {
       labelInterpolationFnc: (value) => {
         return value
-      },
-      plugins: [
-        Chartist.plugins.tooltip()
-      ]
+      }
     })
 
     setTimeout(() => {
