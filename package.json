@@ -2,11 +2,13 @@
   "scripts": {
     "lint": "eslint $(git ls-files | grep -E '\\.jsx?$')",
     "start": "webpack-dev-server",
-    "build": "webpack"
+    "build": "webpack",
+    "deploy": "gh-pages -d browser/dist"
   },
   "dependencies": {
     "@babel/preset-env": "^7.7.7",
     "bulma": "^0.8.0",
+    "bulma-tooltip": "^3.0.2",
     "chartist": "^0.11.4",
     "core-js": "^3.6.0",
     "csv-parse": "^4.8.2",
@@ -27,6 +29,7 @@
     "eslint-plugin-filenames": "latest",
     "eslint-plugin-hyperdom": "latest",
     "eslint-plugin-import": "latest",
+    "gh-pages": "^2.1.1",
     "html-webpack-plugin": "latest",
     "style-loader": "latest",
     "webpack": "latest",

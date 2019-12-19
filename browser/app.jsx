@@ -75,7 +75,7 @@ export default class App {
               </li>
               <li class={slider}>
                 <label for="tribalIntolerance">
-                  Tribal intolerance
+                  Tribal intolerance <sup data-tooltip="No thanks. I'd rather stay home than vote for X.">&#63;</sup>
                 </label>
                 <input type="range" min="0" max="100" id="tribalIntolerance" binding='this.tribalIntolerance'/>
                 <div>
