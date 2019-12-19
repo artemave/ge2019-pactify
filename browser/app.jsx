@@ -1,5 +1,4 @@
 import hyperdom from 'hyperdom'
-import '~/../bulma/css/bulma.css?raw' // eslint-disable-line
 import {mainTitle, slider, positive, negative} from './styles.css'
 import {style} from 'hobostyle'
 import routes from './routes'
@@ -75,9 +74,13 @@ export default class App {
                 </label>
               </li>
               <li class={slider}>
-                <label>
-                  <input type="range" min="0" max="100" binding='this.tribalIntolerance'/>Tribal intolerance ({this.tribalIntolerance}%)
+                <label for="tribalIntolerance">
+                  Tribal intolerance
                 </label>
+                <input type="range" min="0" max="100" id="tribalIntolerance" binding='this.tribalIntolerance'/>
+                <div>
+                  {this.tribalIntolerance}%
+                </div>
               </li>
             </ul>
           </div>

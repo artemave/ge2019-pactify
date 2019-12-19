@@ -1,6 +1,5 @@
 import hyperdom from 'hyperdom'
 import Chartist from 'chartist'
-import '~/../chartist/dist/chartist.css?raw' // eslint-disable-line
 import {chartContainer} from './styles.css'
 import partyColors from './partyColors.json'
 import sum from './sum'
@@ -31,11 +30,7 @@ export default class PieChart {
   }
 
   onrender(el) {
-    new Chartist.Pie(el, this.data, {
-      labelInterpolationFnc: (value) => {
-        return value
-      }
-    })
+    new Chartist.Pie(el, this.data)
 
     const css = this.data.labels.map((label, i) => {
       return `.ct-series-${numberToChar[i]} .ct-slice-pie { fill: ${partyColors[label]} !important; }`
