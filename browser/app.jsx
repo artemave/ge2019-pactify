@@ -55,47 +55,63 @@ export default class App {
       <div class="container">
         <h2 class="title is-4 has-text-centered is-uppercase m-t-lg m-b-lg">What if Labour had an election pact</h2>
 
-        <div className="columns is-desktop">
-          <div className="column">
-            <fieldset>
-              <legend class="m-b-xs has-text-weight-bold">With:</legend>
-              <ul>
-                <li>
-                  <label>
-                    <input type="checkbox" class="m-r-xs" binding='this.pactWithLD'/>LibDems
-                  </label>
-                </li>
-                <li>
-                  <label>
-                    <input type="checkbox" class="m-r-xs" binding='this.pactWithGreens'/>Greens
-                  </label>
-                </li>
-                <li>
-                  <label>
-                    <input type="checkbox" class="m-r-xs" binding='this.pactWithPC'/>Plaid Cymru
-                  </label>
-                </li>
-                <li class="m-t-md">
-                  <label for="tribalIntolerance">
-                    Tribal intolerance <sup data-tooltip="Only voting for their party, or not voting at all">&#63;</sup>
-                  </label>
-                  <input type="range" min="0" max="100" id="tribalIntolerance" binding='this.tribalIntolerance'/>
-                  <div>
-                    {this.tribalIntolerance}%
-                  </div>
-                </li>
-              </ul>
-            </fieldset>
+        <div class="tile is-ancestor is-parent">
+          <div class="tile is-vertical is-9 is-parent">
+            <div class="tile is-parent">
+              <div class="tile is-child is-4">
+                {this.renderFilter()}
+              </div>
+              <div class="tile is-child">
+                {this.renderPieChart(totalSeatsByParty)}
+              </div>
+            </div>
+            <div class="tile is-child">
+              {this.renderDiffBreakdownTable()}
+            </div>
           </div>
-          <div className="column is-two-thirds">
-            {this.renderPieChart(totalSeatsByParty)}
-          </div>
-          <div className="column">
+          <div class="tile is-child is-3">
             {this.renderResultsTotalTable(totalSeatsByParty)}
           </div>
         </div>
       </div>
     )
+  }
+
+  renderFilter() {
+    return (
+      <fieldset>
+        <legend class="m-b-xs has-text-weight-bold">With:</legend>
+        <ul>
+          <li>
+            <label>
+              <input type="checkbox" class="m-r-xs" binding='this.pactWithLD'/>LibDems
+            </label>
+          </li>
+          <li>
+            <label>
+              <input type="checkbox" class="m-r-xs" binding='this.pactWithGreens'/>Greens
+            </label>
+          </li>
+          <li>
+            <label>
+              <input type="checkbox" class="m-r-xs" binding='this.pactWithPC'/>Plaid Cymru
+            </label>
+          </li>
+          <li class="m-t-md">
+            <label for="tribalIntolerance">
+              Tribal intolerance <sup data-tooltip="Only voting for their party, or not voting at all">&#63;</sup>
+            </label>
+            <input type="range" min="0" max="100" id="tribalIntolerance" binding='this.tribalIntolerance'/>
+            <div>
+              {this.tribalIntolerance}%
+            </div>
+          </li>
+        </ul>
+      </fieldset>
+    )
+  }
+
+  renderDiffBreakdownTable() {
   }
 
   renderPieChart(totalSeatsByParty) {
