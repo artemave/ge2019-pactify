@@ -35,7 +35,6 @@ const webpackConfig = {
   },
   output: {
     filename: 'bundle.js',
-    publicPath: '/',
     path: path.resolve(__dirname, 'browser', 'dist')
   },
   resolve: {
