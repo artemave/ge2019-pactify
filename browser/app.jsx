@@ -1,5 +1,5 @@
 import hyperdom from 'hyperdom'
-import {mainTitle, slider, positive, negative} from './styles.css'
+import {positive, negative} from './styles.css'
 import {style} from 'hobostyle'
 import routes from './routes'
 import data from './data.json'
@@ -53,42 +53,45 @@ export default class App {
 
     return (
       <div class="container">
-        <h2 class={`title is-4 has-text-centered is-uppercase ${mainTitle}`}>What if Labour had an election pact</h2>
+        <h2 class="title is-4 has-text-centered is-uppercase m-t-lg m-b-lg">What if Labour had an election pact</h2>
 
         <div className="columns is-desktop">
           <div className="column">
-            <ul>
-              <li>
-                <label>
-                  <input type="checkbox" binding='this.pactWithLD'/>LibDems
-                </label>
-              </li>
-              <li>
-                <label>
-                  <input type="checkbox" binding='this.pactWithGreens'/>Greens
-                </label>
-              </li>
-              <li>
-                <label>
-                  <input type="checkbox" binding='this.pactWithPC'/>Plaid Cymru
-                </label>
-              </li>
-              <li class={slider}>
-                <label for="tribalIntolerance">
-                  Tribal intolerance <sup data-tooltip="No thanks. I'd rather stay home than vote for X.">&#63;</sup>
-                </label>
-                <input type="range" min="0" max="100" id="tribalIntolerance" binding='this.tribalIntolerance'/>
-                <div>
-                  {this.tribalIntolerance}%
-                </div>
-              </li>
-            </ul>
+            <fieldset>
+              <legend class="m-b-xs has-text-weight-bold">With:</legend>
+              <ul>
+                <li>
+                  <label>
+                    <input type="checkbox" class="m-r-xs" binding='this.pactWithLD'/>LibDems
+                  </label>
+                </li>
+                <li>
+                  <label>
+                    <input type="checkbox" class="m-r-xs" binding='this.pactWithGreens'/>Greens
+                  </label>
+                </li>
+                <li>
+                  <label>
+                    <input type="checkbox" class="m-r-xs" binding='this.pactWithPC'/>Plaid Cymru
+                  </label>
+                </li>
+                <li class="m-t-md">
+                  <label for="tribalIntolerance">
+                    Tribal intolerance <sup data-tooltip="Only voting for their party, or not voting at all">&#63;</sup>
+                  </label>
+                  <input type="range" min="0" max="100" id="tribalIntolerance" binding='this.tribalIntolerance'/>
+                  <div>
+                    {this.tribalIntolerance}%
+                  </div>
+                </li>
+              </ul>
+            </fieldset>
           </div>
           <div className="column is-two-thirds">
             {this.renderPieChart(totalSeatsByParty)}
           </div>
           <div className="column">
-            {this.renderResultTable(totalSeatsByParty)}
+            {this.renderResultsTotalTable(totalSeatsByParty)}
           </div>
         </div>
       </div>
@@ -99,7 +102,7 @@ export default class App {
     return new PieChart({data: totalSeatsByParty, pieStyle: this.pieStyle})
   }
 
-  renderResultTable(totalSeatsByParty) {
+  renderResultsTotalTable(totalSeatsByParty) {
     const actualTotalSeatsByParty = this.calculateTotalSeatsByParty({doPactify: false})
 
     return (

@@ -3,7 +3,7 @@
     "lint": "eslint $(git ls-files | grep -E '\\.jsx?$')",
     "start": "webpack-dev-server",
     "build": "webpack",
-    "deploy": "gh-pages -d browser/dist"
+    "deploy": "NODE_ENV=production yarn build && gh-pages -d browser/dist"
   },
   "dependencies": {
     "@babel/preset-env": "^7.7.7",
