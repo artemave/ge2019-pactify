@@ -49,7 +49,17 @@ export default class App {
   }
 
   render() {
-    const totalSeatsByParty = this.calculateTotalSeatsByParty()
+    const pactedWith = [
+      this.pactWithLD && 'LD',
+      this.pactWithGreens && 'GRN',
+      this.pactWithPC && 'PC',
+    ].filter(Boolean)
+
+    const actualData = Object.values(groupBy(data, 'constituency'))
+    const pactifiedData = pactify({data: actualData, pactedWith, tribalIntolerance: this.tribalIntolerance})
+
+    const actualTotalSeatsByParty = this.calculateTotalSeatsByParty(actualData)
+    const pactifiedTotalSeatsByParty = this.calculateTotalSeatsByParty(pactifiedData)
 
     return (
       <div class="container">
@@ -62,15 +72,15 @@ export default class App {
                 {this.renderFilter()}
               </div>
               <div class="tile is-child">
-                {this.renderPieChart(totalSeatsByParty)}
+                {this.renderPieChart(pactifiedTotalSeatsByParty)}
               </div>
             </div>
             <div class="tile is-child">
-              {this.renderDiffBreakdownTable()}
+              {this.renderDiffBreakdownTable(actualData, pactifiedData)}
             </div>
           </div>
           <div class="tile is-child is-3">
-            {this.renderResultsTotalTable(totalSeatsByParty)}
+            {this.renderResultsTotalTable(actualTotalSeatsByParty, pactifiedTotalSeatsByParty)}
           </div>
         </div>
       </div>
@@ -111,16 +121,60 @@ export default class App {
     )
   }
 
-  renderDiffBreakdownTable() {
+  renderDiffBreakdownTable(actualData, pactifiedData) {
+    const diff = pactifiedData.reduce((result, pactifiedConstituency, i) => {
+      const pactifiedWinner = max(pactifiedConstituency, 'votes')
+      const actualWinner = max(actualData[i], 'votes')
+
+      if (actualWinner.pid !== pactifiedWinner.pid) {
+        result.push({ actualWinner, pactifiedWinner })
+      }
+      return result
+    }, [])
+
+    return (
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Constituency</th>
+            <th>Pactified Party</th>
+            <th>Pactified MP</th>
+            <th>Pactified Votes</th>
+            <th>Actual Party</th>
+            <th>Actual MP</th>
+            <th>Actual Votes</th>
+            <th>Added Votes</th>
+            <th>Margin</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            diff.map(({actualWinner, pactifiedWinner}) => {
+              return (
+                <tr>
+                  <td>{actualWinner.constituency}</td>
+                  <td>{pactifiedWinner.pid}</td>
+                  <td>{pactifiedWinner.mp}</td>
+                  <td>{pactifiedWinner.votes}</td>
+                  <td>{actualWinner.pid}</td>
+                  <td>{actualWinner.mp}</td>
+                  <td>{actualWinner.votes}</td>
+                  <td>{pactifiedWinner.addedVotes}</td>
+                  <td>{pactifiedWinner.votes - actualWinner.votes}</td>
+                </tr>
+              )
+            })
+          }
+        </tbody>
+      </table>
+    )
   }
 
   renderPieChart(totalSeatsByParty) {
     return new PieChart({data: totalSeatsByParty, pieStyle: this.pieStyle})
   }
 
-  renderResultsTotalTable(totalSeatsByParty) {
-    const actualTotalSeatsByParty = this.calculateTotalSeatsByParty({doPactify: false})
-
+  renderResultsTotalTable(actualTotalSeatsByParty, pactifiedTotalSeatsByParty) {
     return (
       <table class="table">
         <thead>
@@ -132,7 +186,7 @@ export default class App {
         </thead>
         <tbody>
           {
-            totalSeatsByParty.map(([party, seats]) => {
+            pactifiedTotalSeatsByParty.map(([party, seats]) => {
               const diff = seats - actualTotalSeatsByParty.find(actualPartyResult => actualPartyResult[0] === party)[1]
               let className = ''
               if (diff !== 0) {
@@ -152,20 +206,8 @@ export default class App {
     )
   }
 
-  calculateTotalSeatsByParty({doPactify = true} = {}) {
-    const pactedWith = [
-      this.pactWithLD && 'LD',
-      this.pactWithGreens && 'GRN',
-      this.pactWithPC && 'PC',
-    ].filter(Boolean)
-
-    const groupedByConstituency = Object.values(groupBy(data, 'constituency'))
-
-    const pactifiedData = doPactify
-      ? pactify({data: groupedByConstituency, pactedWith, tribalIntolerance: this.tribalIntolerance})
-      : groupedByConstituency
-
-    const winners = pactifiedData.map(constituencyResults => {
+  calculateTotalSeatsByParty(groupedByConstituency) {
+    const winners = groupedByConstituency.map(constituencyResults => {
       return max(constituencyResults, 'votes')
     })
 
