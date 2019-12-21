@@ -140,6 +140,10 @@ export default class App {
       return result
     }, [])
 
+    if (diff.length === 0) {
+      return
+    }
+
     return (
       <table class="table is-bordered is-striped is-hoverable is-fullwidth">
         <thead>
