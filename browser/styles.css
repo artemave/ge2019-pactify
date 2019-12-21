@@ -3,7 +3,11 @@
 }
 
 .chartContainer {
-  max-height: 300px;
+  min-height: 300px;
+}
+
+.filterContainer {
+  max-height: 240px;
 }
 
 .positive {

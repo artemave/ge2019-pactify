@@ -1,5 +1,5 @@
 import hyperdom from 'hyperdom'
-import {positive, negative} from './styles.css'
+import {positive, negative, filterContainer} from './styles.css'
 import {style} from 'hobostyle'
 import routes from './routes'
 import data from './data.json'
@@ -63,24 +63,32 @@ export default class App {
 
     return (
       <div class="container">
-        <h2 class="title is-4 has-text-centered is-uppercase m-t-lg m-b-lg">What if Labour had an election pact</h2>
+        <h2 class="title is-4 has-text-centered is-uppercase m-t-lg m-b-xl">What if Labour had an election pact</h2>
 
-        <div class="tile is-ancestor is-parent">
-          <div class="tile is-vertical is-9 is-parent">
-            <div class="tile is-parent">
-              <div class="tile is-child is-4">
+        <div class="tile is-ancestor is-vertical">
+
+          <div class="tile">
+            <div class="tile is-parent is-3">
+              <div class={`tile is-child box ${filterContainer}`}>
                 {this.renderFilter()}
               </div>
-              <div class="tile is-child">
+            </div>
+            <div class="tile is-parent is-4">
+              <div class="tile is-child has-text-left">
                 {this.renderPieChart(pactifiedTotalSeatsByParty)}
               </div>
             </div>
+            <div class="tile is-parent is-5">
+              <div class="tile is-child">
+                {this.renderResultsTotalTable(actualTotalSeatsByParty, pactifiedTotalSeatsByParty)}
+              </div>
+            </div>
+          </div>
+
+          <div class="tile is-parent">
             <div class="tile is-child">
               {this.renderDiffBreakdownTable(actualData, pactifiedData)}
             </div>
-          </div>
-          <div class="tile is-child is-3">
-            {this.renderResultsTotalTable(actualTotalSeatsByParty, pactifiedTotalSeatsByParty)}
           </div>
         </div>
       </div>
@@ -108,8 +116,8 @@ export default class App {
             </label>
           </li>
           <li class="m-t-md">
-            <label for="tribalIntolerance">
-              Tribal intolerance <sup data-tooltip="Only voting for their party, or not voting at all">&#63;</sup>
+            <label for="tribalIntolerance" class="is-block">
+              Tribal intolerance&nbsp;<sup data-tooltip="Only voting for their party, or not voting at all">&#63;</sup>
             </label>
             <input type="range" min="0" max="100" id="tribalIntolerance" binding='this.tribalIntolerance'/>
             <div>
