@@ -38,7 +38,7 @@ export default class App {
           },
           tribalIntolerance: {
             set: (v) => {
-              this.pactWithPC = Number(v)
+              this.tribalIntolerance = Number(v)
             },
             get: () => this.tribalIntolerance
           },
