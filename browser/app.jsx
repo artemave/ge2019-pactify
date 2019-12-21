@@ -1,5 +1,5 @@
 import hyperdom from 'hyperdom'
-import {positive, negative, filterContainer} from './styles.css'
+import styles from './styles.css'
 import {style} from 'hobostyle'
 import routes from './routes'
 import data from './data.json'
@@ -69,7 +69,7 @@ export default class App {
 
           <div class="tile">
             <div class="tile is-parent is-3">
-              <div class={`tile is-child box ${filterContainer}`}>
+              <div class={`tile is-child box ${styles.filterContainer}`}>
                 {this.renderFilter()}
               </div>
             </div>
@@ -141,18 +141,22 @@ export default class App {
     }, [])
 
     return (
-      <table class="table">
+      <table class="table is-bordered is-striped is-hoverable is-fullwidth">
         <thead>
           <tr>
-            <th>Constituency</th>
-            <th>Pactified Party</th>
-            <th>Pactified MP</th>
-            <th>Pactified Votes</th>
-            <th>Actual Party</th>
-            <th>Actual MP</th>
-            <th>Actual Votes</th>
-            <th>Added Votes</th>
-            <th>Margin</th>
+            <th rowSpan="2" class="has-text-centered">Constituency</th>
+            <th colSpan="3" class="has-text-centered">Pactified winner</th>
+            <th colSpan="3" class="has-text-centered">Actual winner</th>
+            <th rowSpan="2" class="has-text-centered">Added Votes</th>
+            <th rowSpan="2" class="has-text-centered">Margin</th>
+          </tr>
+          <tr>
+            <th>Party</th>
+            <th>MP</th>
+            <th>Votes</th>
+            <th>Party</th>
+            <th>MP</th>
+            <th>Votes</th>
           </tr>
         </thead>
         <tbody>
@@ -161,10 +165,10 @@ export default class App {
               return (
                 <tr>
                   <td>{actualWinner.constituency}</td>
-                  <td>{pactifiedWinner.pid}</td>
+                  <td class={styles[pactifiedWinner.pid]}>{pactifiedWinner.pid}</td>
                   <td>{pactifiedWinner.mp}</td>
                   <td>{pactifiedWinner.votes}</td>
-                  <td>{actualWinner.pid}</td>
+                  <td class={styles[actualWinner.pid]}>{actualWinner.pid}</td>
                   <td>{actualWinner.mp}</td>
                   <td>{actualWinner.votes}</td>
                   <td>{pactifiedWinner.addedVotes}</td>
@@ -198,7 +202,7 @@ export default class App {
               const diff = seats - actualTotalSeatsByParty.find(actualPartyResult => actualPartyResult[0] === party)[1]
               let className = ''
               if (diff !== 0) {
-                className = diff > 0 ? positive : negative
+                className = diff > 0 ? styles.positive : styles.negative
               }
               return (
                 <tr>

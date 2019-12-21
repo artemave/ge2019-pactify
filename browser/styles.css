@@ -17,3 +17,19 @@
 .negative {
   color: red;
 }
+
+.CON {
+  background: rgba(5, 117, 201, 0.3);
+}
+
+.LAB {
+  background: rgba(233, 29, 14, 0.3);
+}
+
+.SNP {
+  background: rgba(248, 237, 46, 0.3);
+}
+
+.LD {
+  background: rgba(239, 172, 24, 0.3);
+}
