@@ -39,7 +39,7 @@ const webpackConfig = {
     liveReload: false
   },
   output: {
-    filename: 'bundle.js',
+    filename: '[contenthash].bundle.js',
     path: path.resolve(__dirname, 'browser', 'dist')
   },
   resolve: {
