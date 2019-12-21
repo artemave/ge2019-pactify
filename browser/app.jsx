@@ -19,26 +19,28 @@ export default class App {
       routes.home({
         bindings: {
           pactWithLD: {
-            set: (v) => {
+            set: v => {
               this.pactWithLD = v === 'true'
             },
             get: () => this.pactWithLD
           },
           pactWithGreens: {
-            set: (v) => {
+            set: v => {
               this.pactWithGreens = v === 'true'
             },
             get: () => this.pactWithGreens
           },
           pactWithPC: {
-            set: (v) => {
+            set: v => {
               this.pactWithPC = v === 'true'
             },
             get: () => this.pactWithPC
           },
           tribalIntolerance: {
-            set: (v) => {
-              this.tribalIntolerance = Number(v)
+            set: v => {
+              if (v) {
+                this.tribalIntolerance = Number(v)
+              }
             },
             get: () => this.tribalIntolerance
           },
