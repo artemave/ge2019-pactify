@@ -62,35 +62,45 @@ export default class App {
     const pactifiedTotalSeatsByParty = this.calculateTotalSeatsByParty(pactifiedData)
 
     return (
-      <div class="container">
-        <h2 class="title is-4 has-text-centered is-uppercase m-t-lg m-b-xl">What if Labour had an election pact</h2>
-
-        <div class="tile is-ancestor is-vertical">
-
-          <div class="tile">
-            <div class="tile is-parent is-3">
-              <div class={`tile is-child box ${styles.filterContainer}`}>
-                {this.renderFilter()}
+      <div>
+        <main class="container m-b-lg">
+          <h2 class="title is-4 has-text-centered is-uppercase m-t-lg m-b-xl">What if Labour had an election pact</h2>
+          <div class="tile is-ancestor is-vertical">
+            <div class="tile">
+              <div class="tile is-parent is-3">
+                <div class={`tile is-child box ${styles.filterContainer}`}>
+                  {this.renderFilter()}
+                </div>
+              </div>
+              <div class="tile is-parent is-4">
+                <div class="tile is-child has-text-left">
+                  {this.renderPieChart(pactifiedTotalSeatsByParty)}
+                </div>
+              </div>
+              <div class="tile is-parent is-5">
+                <div class="tile is-child">
+                  {this.renderResultsTotalTable(actualTotalSeatsByParty, pactifiedTotalSeatsByParty)}
+                </div>
               </div>
             </div>
-            <div class="tile is-parent is-4">
-              <div class="tile is-child has-text-left">
-                {this.renderPieChart(pactifiedTotalSeatsByParty)}
-              </div>
-            </div>
-            <div class="tile is-parent is-5">
+
+            <div class="tile is-parent">
               <div class="tile is-child">
-                {this.renderResultsTotalTable(actualTotalSeatsByParty, pactifiedTotalSeatsByParty)}
+                {this.renderDiffBreakdownTable(actualData, pactifiedData)}
               </div>
             </div>
           </div>
-
-          <div class="tile is-parent">
-            <div class="tile is-child">
-              {this.renderDiffBreakdownTable(actualData, pactifiedData)}
-            </div>
+        </main>
+        <footer class="footer">
+          <div class="content has-text-centered">
+            <p>
+              Source code on <a href="https://github.com/artemave/ge2019-pactify">Github</a>.
+            </p>
+            <p>
+              Data is scraped from BBC website (<a href="https://github.com/markfowden/ukge2019data">source</a>).
+            </p>
           </div>
-        </div>
+        </footer>
       </div>
     )
   }
