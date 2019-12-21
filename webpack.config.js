@@ -17,10 +17,17 @@ const devtool = mode === 'production'
 const plugins = [
   new CleanWebpackPlugin(),
   new HtmlWebpackPlugin({
+    inject: false,
+    template: require('html-webpack-template'),
+    googleAnalytics: {
+      trackingId: mode === 'production' ? 'UA-154899468-1' : 1,
+      pageViewOnLoad: true,
+    },
     title: 'What if the remain parties had an election pact',
-    meta: {
-      viewport: 'width=device-width, initial-scale=1'
-    }
+    meta: [{
+      name: 'viewport',
+      content: 'width=device-width, initial-scale=1',
+    }]
   })
 ]
 
