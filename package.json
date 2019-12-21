@@ -10,6 +10,7 @@
     "bulma": "^0.8.0",
     "bulma-tooltip": "^3.0.2",
     "chartist": "^0.11.4",
+    "compression-webpack-plugin": "^3.0.1",
     "core-js": "^3.6.0",
     "csv-parse": "^4.8.2",
     "hobostyle": "^1.0.0",

@@ -4,6 +4,7 @@ const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+const CompressionPlugin = require('compression-webpack-plugin')
 
 const mode = process.env.NODE_ENV === 'production'
   ? 'production'
@@ -22,6 +23,10 @@ const plugins = [
     }
   })
 ]
+
+if (mode === 'production') {
+  plugins.push(new CompressionPlugin())
+}
 
 const webpackConfig = {
   mode,
