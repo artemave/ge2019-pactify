@@ -27,7 +27,7 @@ const plugins = [
       trackingId: mode === 'production' ? 'UA-154899468-1' : 1,
       pageViewOnLoad: true,
     },
-    title: 'What if the remain parties had an election pact',
+    title: 'Online tool to see what might have happened if Labour had an election pact with other remain parties',
     meta: [{
       name: 'viewport',
       content: 'width=device-width, initial-scale=1',
