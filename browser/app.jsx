@@ -110,24 +110,24 @@ export default class App {
   renderFilter() {
     return (
       <fieldset>
-        <legend class="m-b-xs has-text-weight-bold">With:</legend>
+        <legend class="m-b-md has-text-weight-bold">With:</legend>
         <ul>
-          <li>
+          <li class="field">
             <label>
               <input type="checkbox" class="m-r-xs" binding='this.pactWithLD'/>LibDems
             </label>
           </li>
-          <li>
+          <li class="field">
             <label>
               <input type="checkbox" class="m-r-xs" binding='this.pactWithGreens'/>Greens
             </label>
           </li>
-          <li>
+          <li class="field">
             <label>
               <input type="checkbox" class="m-r-xs" binding='this.pactWithPC'/>Plaid Cymru
             </label>
           </li>
-          <li class="m-t-md">
+          <li class="field">
             <label for="tribalIntolerance" class="is-block">
               Tribal intolerance&nbsp;<sup data-tooltip="Only voting for their party, or not voting at all">&#63;</sup>
             </label>

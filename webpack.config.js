@@ -5,6 +5,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const CompressionPlugin = require('compression-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 const mode = process.env.NODE_ENV === 'production'
   ? 'production'
@@ -16,6 +17,9 @@ const devtool = mode === 'production'
 
 const plugins = [
   new CleanWebpackPlugin(),
+  new MiniCssExtractPlugin({
+    filename: '[contenthash].[name].css',
+  }),
   new HtmlWebpackPlugin({
     inject: false,
     template: require('html-webpack-template'),
@@ -61,7 +65,7 @@ const webpackConfig = {
       },
       {
         test: /vendor\.sass$/,
-        use: ['style-loader', 'css-loader', 'sass-loader']
+        use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader']
       },
       {
         test: /\.css$/,
